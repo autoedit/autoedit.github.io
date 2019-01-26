@@ -32,7 +32,7 @@ body {
 
 #supercontainer {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     display: none;
 }
 
@@ -236,7 +236,7 @@ body {
 #loading {
     display: none;
     width: 100%;
-    height: 100%;
+    height: 100vh;
 }
 
 #card {
