@@ -70,7 +70,7 @@ function setCanvasHeight() {
 	if (canvas.offsetHeight > 0.5 * window.innerHeight) {
 		var calc = 0.5 * window.innerHeight * canvas.width / canvas.height;
 		if (calc < window.innerWidth) {
-			canvas.style.width = calc;
+			canvas.style.width = `${calc}px`;
 		}
 	}
 }
