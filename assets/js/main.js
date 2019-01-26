@@ -96,7 +96,7 @@ function act(event, isFirst) {
 				if (max < 512) {
 					var scale = 1;
 				} else {
-					var scale = 960 / max;
+					var scale = 720 / max;
 				}
 				const width = Math.ceil(img.width * scale);
 				const height = Math.ceil(img.height * scale);
