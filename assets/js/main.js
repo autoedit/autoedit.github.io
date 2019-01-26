@@ -158,7 +158,7 @@ var blob = null;
 	saveButton.addEventListener("click", saveCanvas);
 
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "http://localhost:8000/generator.onnx");
+	xhr.open("GET", "assets/model/generator.onnx");
 	xhr.responseType = "blob";
 	xhr.onload = function() {
 		blob = xhr.response;
