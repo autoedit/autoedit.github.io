@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+<body>
+    <div id="main">
+        <div class="hero">
+            <div class="container">
+                <div class="logo-large">autoedit.github.io</div>
+                <div class="text">Automatic photo editing using deep neural networks</div>
+            </div>
+            <span id="arrow"></span>
+        </div>
+        <div id="section">
+            <div class="content-text">This site uses a deep neural network to apply content-aware color transformations to your photos. All computation is done locally on your device using Onnx.js.</div>
+            <div class="content-img-container">
+                <img src="assets/img/example.png"></img>
+                <div>Some examples of the results produced by the network</div>
+            </div>
+            <div class="content-text">View <a href="assets/img/more_results.png"  target="_blank">more results</a> produced by the algorithm or select your own image below. Note that in order to increase speed and decrease memory usage, images will be downscaled to a maximum size of 960x960 before processing. Does not currently support Safari, iOS, or Firefox for Android due to limitations of onnx.js. It is recommended that you select an image which has not already been edited for optimal results.</div>
+            <input type="file" accept="image/*" class="button center-button loading-button fileinput" id="file-input-first">
+            <label for="file-input-first" id="file-input-first-label" unselectable="on" class="unselectable">Please wait - loading model...</label>
+        </div>
+    </div>
+    <div id="supercontainer">
+        <div id="loading" class="animate-fade">
+            <div class="container">
+                <div class="logo-small">autoedit.github.io</div>
+                <div class="text">Applying edits...</div>
+            </div>
+        </div>
+        <div id="card" class="animate-fade">
+            <div id="title">Processing complete</div>
+            <canvas id="canvas" width="256" height="256"></canvas>
+            <div id="buttons-container">
+                <input type="button" class="button" id="save-button">
+                <label for="save-button">Save image</label>
+                <input type="file" accept="image/*" id="file-input" class="button fileinput" />
+                <label for="file-input" unselectable="on" class="unselectable">New image</label>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/ndarray-browser-min.js"></script>
+    <script src="assets/js/onnx.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
