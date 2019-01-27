@@ -214,14 +214,14 @@ body {
 
 .logo-large {
     color: white;
-    font-size: 2.5em;
+    font-size: 2.2rem;
     font-weight: bold;
     margin-bottom: 0.5em;
 }
 
 .logo-small {
     color: white;
-    font-size: 2em;
+    font-size: 1.8rem;
     font-weight: bold;
     margin-bottom: 0.5em;
 }
@@ -231,6 +231,7 @@ body {
     opacity: 0.5;
     padding-left: 2em;
     padding-right: 2em;
+    font-size: 0.8rem;
 }
 
 #loading {
