@@ -1,34 +1,3 @@
-function scrollIt(destination, duration = 200) {
-	// source: https://pawelgrzybek.com/page-scroll-in-vanilla-javascript/
-
-	const start = window.pageYOffset;
-	const startTime = 'now' in window.performance ? performance.now() : new Date().getTime();
-
-	const documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
-	const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
-	const destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop;
-	const destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
-
-	if ('requestAnimationFrame' in window === false) {
-		window.scroll(0, destinationOffsetToScroll);
-		return;
-	}
-
-	function scroll() {
-		const now = 'now' in window.performance ? performance.now() : new Date().getTime();
-		const time = Math.min(1, ((now - startTime) / duration));
-		window.scroll(0, Math.ceil((time * (destinationOffsetToScroll - start)) + start));
-
-		if (window.pageYOffset === destinationOffsetToScroll) {
-			return;
-		}
-
-		requestAnimationFrame(scroll);
-	}
-
-	scroll();
-}
-
 function preprocess(data, width, height) {
 	const dataFromImage = ndarray(new Float32Array(data), [width, height, 4]);
 	const dataProcessed = ndarray(new Float32Array(width * height * 3), [1, 3, width, height]);
@@ -52,14 +21,10 @@ function postprocess(data, width, height) {
 	return new Uint8ClampedArray(processed.data);
 }
 
+zenscroll.setup(null, 0);
 document.getElementById('arrow').onclick = function(e) {
-	scrollIt(
-		document.getElementById('section'),
-		700,
-		'easeOutQuad'
-	);
+  zenscroll.to(document.getElementById('section'));
 };
-
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext('2d');
