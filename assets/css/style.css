@@ -111,8 +111,7 @@ body {
     color: white;
     padding: 1.1em;
     width: 100%;
-    max-width: 800px;
-    min-width: 50%;
+    max-width: 80vh;
     margin-left: auto;
     margin-right: auto;
     opacity: 0.9;
@@ -122,8 +121,7 @@ body {
     box-sizing: border-box;
     padding: 1em;
     width: 100%;
-    max-width: 800px;
-    min-width: 50%;
+    max-width: 80vh;
     margin-left: auto;
     margin-right: auto;
     opacity: 0.9;
