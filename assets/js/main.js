@@ -92,44 +92,49 @@ function act(event, isFirst) {
 			document.getElementById("supercontainer").style.display = "block";
 			document.getElementById("loading").style.display = "block";
 			setTimeout(async function() {
-				var max = Math.max(img.height, img.width);
-				if (max < 512) {
-					var scale = 1;
-				} else {
-					var scale = 720 / max;
-				}
-				const width = Math.ceil(img.width * scale);
-				const height = Math.ceil(img.height * scale);
+        try {
+  				var max = Math.max(img.height, img.width);
+  				if (max < 512) {
+  					var scale = 1;
+  				} else {
+  					var scale = 720 / max;
+  				}
+  				const width = Math.ceil(img.width * scale);
+  				const height = Math.ceil(img.height * scale);
 
-				canvas.width = width;
-				canvas.height = height;
-				ctx.drawImage(img, 0, 0, width, height);
-				const pixels = preprocess(ctx.getImageData(0, 0, width, height).data, width, height);
-				canvas.width = 96;
-				canvas.height = 96;
-				ctx.drawImage(img, 0, 0, 96, 96);
-				const pixels96 = preprocess(ctx.getImageData(0, 0, 96, 96).data, 96, 96);
-				canvas.width = width;
-				canvas.height = height;
+  				canvas.width = width;
+  				canvas.height = height;
+  				ctx.drawImage(img, 0, 0, width, height);
+  				const pixels = preprocess(ctx.getImageData(0, 0, width, height).data, width, height);
+  				canvas.width = 96;
+  				canvas.height = 96;
+  				ctx.drawImage(img, 0, 0, 96, 96);
+  				const pixels96 = preprocess(ctx.getImageData(0, 0, 96, 96).data, 96, 96);
+  				canvas.width = width;
+  				canvas.height = height;
 
-				const inputTensor = new onnx.Tensor(pixels, 'float32', [1, 3, width, height]);
-				const inputTensor96 = new onnx.Tensor(pixels96, 'float32', [1, 3, 96, 96]);
+  				const inputTensor = new onnx.Tensor(pixels, 'float32', [1, 3, width, height]);
+  				const inputTensor96 = new onnx.Tensor(pixels96, 'float32', [1, 3, 96, 96]);
 
-				var session = new onnx.InferenceSession({
-					backendHint: 'webgl'
-				});
-				await session.loadModel(blob);
-				const output = await session.run([inputTensor, inputTensor96]);
-				var outputData = output.values().next().value.data;
+  				var session = new onnx.InferenceSession({
+  					backendHint: 'webgl'
+  				});
+  				await session.loadModel(blob);
+  				const output = await session.run([inputTensor, inputTensor96]);
+  				var outputData = output.values().next().value.data;
 
-				var image = ctx.createImageData(width, height);
-				image.data.set(postprocess(outputData, width, height));
-				console.log(width, height);
-				ctx.putImageData(image, 0, 0);
+  				var image = ctx.createImageData(width, height);
+  				image.data.set(postprocess(outputData, width, height));
+  				console.log(width, height);
+  				ctx.putImageData(image, 0, 0);
 
-				document.getElementById("loading").style.display = "none";
-				document.getElementById("card").style.display = "block";
-				setCanvasHeight();
+  				document.getElementById("loading").style.display = "none";
+  				document.getElementById("card").style.display = "block";
+  				setCanvasHeight();
+        }
+        catch(err) {
+          alert("Error processing image. Your device is likely not powerful enough to run this program.");
+        }
 			}, 100);
 		}
 	};
